@@ -1,10 +1,6 @@
 package ua.com.novykov.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -14,7 +10,8 @@ import javax.persistence.Id;
 @Setter
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
+//@AllArgsConstructor
+//@RequiredArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,4 +19,8 @@ public class Message {
     private String text;
     private String tag;
 
+    public Message(String text, String tag) {
+        this.text = text;
+        this.tag = tag;
+    }
 }
