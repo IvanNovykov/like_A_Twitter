@@ -12,13 +12,14 @@ import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
-public class GreetingController {
+public class MainController {
     private final MessageRepository messageRepository;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
         return "greeting";
     }
+
     @GetMapping("/main")
     public String main(Map<String, Object> model) {
         List<Message> messages = messageRepository.findAll();
