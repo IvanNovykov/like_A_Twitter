@@ -8,8 +8,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-//@AllArgsConstructor
-//@RequiredArgsConstructor
+
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

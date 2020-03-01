@@ -6,14 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.novykov.models.Message;
-import ua.com.novykov.repositories.MessageRepository;
+import ua.com.novykov.service.MessageService;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
 public class MainController {
-    private final MessageRepository messageRepository;
+    private final MessageService messageService;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -22,26 +22,26 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(Map<String, Object> model) {
-        List<Message> messages = messageRepository.findAll();
+        List<Message> messages = messageService.messages();
         model.put("messages", messages);
         return "main";
     }
     @PostMapping("/main")
-    public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
-        Message message = new Message(text, tag);
-        messageRepository.save(message);
-        List<Message> messages = messageRepository.findAll();
-        model.put("messages", messages);
-        return "main";
+        public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
+            Message message = new Message(text, tag);
+            messageService.save(message);
+            List<Message> messages = messageService.messages();
+            model.put("messages", messages);
+            return "main";
     }
 
     @PostMapping("filter")
     public String filter(@RequestParam String tag, Map<String, Object> model) {
         List<Message> messages;
         if(tag !=null && !tag.isEmpty()){
-            messages = messageRepository.findByTag(tag);}
+            messages = messageService.findByTag(tag);}
         else {
-            messages = messageRepository.findAll();
+            messages = messageService.messages();
         }
         model.put("messages", messages);
         return "main";
