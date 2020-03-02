@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ua.com.novykov.models.Role;
 import ua.com.novykov.models.User;
 import ua.com.novykov.service.UserService;
-
 import java.util.Collections;
 import java.util.Map;
 
@@ -26,14 +25,12 @@ public class RegistrationController {
     public String addUser(User user, Map<String, Object> model) {
         User userFromDB = userService.findUserByName(user.getUsername());
         if (userFromDB != null) {
-            model.put("message", "User exists");
+            model.put("message", "User exists!");
             return "registration";
         }
-
         user.setActive(true);
         user.setRoles(Collections.singleton(Role.USER));
         userService.save(user);
         return "redirect:/login";
     }
-
 }

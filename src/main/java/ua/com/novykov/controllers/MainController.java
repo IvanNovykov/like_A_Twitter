@@ -1,11 +1,13 @@
 package ua.com.novykov.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ua.com.novykov.models.Message;
+import ua.com.novykov.models.User;
 import ua.com.novykov.service.MessageService;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +29,10 @@ public class MainController {
         return "main";
     }
     @PostMapping("/main")
-        public String add(@RequestParam String text, @RequestParam String tag, Map<String, Object> model) {
+        public String add(
+                @AuthenticationPrincipal User user,
+                @RequestParam String text,
+                @RequestParam String tag, Map<String, Object> model) {
             Message message = new Message(text, tag);
             messageService.save(message);
             List<Message> messages = messageService.messages();
