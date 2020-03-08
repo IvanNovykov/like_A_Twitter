@@ -3,6 +3,7 @@ package ua.com.novykov.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,9 +24,15 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model) {
+    public String main(@RequestParam(required = false, defaultValue = "") String tag, Model model) {
         List<Message> messages = messageService.messages();
-        model.put("messages", messages);
+        if(tag !=null && !tag.isEmpty()){
+            messages = messageService.findByTag(tag);}
+        else {
+            messages = messageService.messages();
+        }
+        model.addAttribute("messages", messages);
+        model.addAttribute("tag", tag);
         return "main";
     }
     @PostMapping("addUser")
@@ -40,21 +47,9 @@ public class MainController {
             return "main";
     }
 
-    @PostMapping("filter")
-    public String filter(@RequestParam String tag, Map<String, Object> model) {
-        List<Message> messages;
-        if(tag !=null && !tag.isEmpty()){
-            messages = messageService.findByTag(tag);}
-        else {
-            messages = messageService.messages();
-        }
-        model.put("messages", messages);
-        return "main";
-    }
     @PostMapping("delete")
     public String deleteMessage(@RequestParam Long id, Map<String, Object> model){
         messageService.deleteById(id);
-
         return "main";
     }
 }
