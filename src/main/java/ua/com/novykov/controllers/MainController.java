@@ -33,7 +33,7 @@ public class MainController {
                 @AuthenticationPrincipal User user,
                 @RequestParam String text,
                 @RequestParam String tag, Map<String, Object> model) {
-            Message message = new Message(text, tag);
+            Message message = new Message(text, tag, user);
             messageService.save(message);
             List<Message> messages = messageService.messages();
             model.put("messages", messages);
