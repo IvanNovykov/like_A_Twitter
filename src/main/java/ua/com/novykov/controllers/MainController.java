@@ -28,7 +28,7 @@ public class MainController {
         model.put("messages", messages);
         return "main";
     }
-    @PostMapping("/main")
+    @PostMapping("addUser")
         public String add(
                 @AuthenticationPrincipal User user,
                 @RequestParam String text,
@@ -49,6 +49,12 @@ public class MainController {
             messages = messageService.messages();
         }
         model.put("messages", messages);
+        return "main";
+    }
+    @PostMapping("delete")
+    public String deleteMessage(@RequestParam Long id, Map<String, Object> model){
+        messageService.deleteById(id);
+
         return "main";
     }
 }

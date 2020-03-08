@@ -10,4 +10,5 @@ import java.util.List;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findByTag(String tag);
+    void deleteById(Long id);
 }

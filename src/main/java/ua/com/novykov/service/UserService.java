@@ -14,11 +14,12 @@ public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
 
-   public  User findUserByName(String name){
+    public User findUserByName(String name) {
         return userRepository.findByUsername(name);
     }
-    public void save(User user){
-       userRepository.save(user);
+
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override

@@ -7,7 +7,7 @@
     </form>
 </div>
 <div>
-    <form method="post">
+    <form method="post" action="addUser">
         <input type="text" name="text" placeholder="Enter your message:"/>
         <input type="text" name="tag" placeholder="TAG:"/>
         <button type="submit">ADD MESSAGE</button>
@@ -21,11 +21,19 @@
     <div><input type="hidden" name="_csrf" value="{{_csrf.token}}"/></div>
 </form>
 {{#messages}}
-    <div>
-        <b>{{id}}</b>
-        <span>{{text}}</span>
-        <i>{{tag}}</i>
-    </div>
+<div>
+    <b>{{id}}</b>
+    <span>{{text}}</span>
+    <i>{{tag}}</i>
+</div>
 {{/messages}}
+
+<div>
+    <form method="post" action="/delete">
+        <input type="text" name="id" placeholder="ID" action="delete"/>
+        <button type="submit">DELETE MESSAGE BY ID</button>
+        <div><input type="hidden" name="_csrf" value="{{_csrf.token}}"/></div>
+    </form>
+</div>
 </body>
 </html>
