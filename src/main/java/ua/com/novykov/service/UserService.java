@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import ua.com.novykov.models.User;
 import ua.com.novykov.repositories.UserRepository;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -25,5 +27,8 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByUsername(username);
+    }
+    public List<User> findAllUsers(){
+        return userRepository.findAll();
     }
 }
