@@ -1,13 +1,13 @@
 package ua.com.novykov.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.com.novykov.models.Role;
 import ua.com.novykov.models.User;
 import ua.com.novykov.service.UserService;
-
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @Controller
 @RequestMapping("/user")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ADMIN')")
 public class UserController {
     private final UserService userService;
 
