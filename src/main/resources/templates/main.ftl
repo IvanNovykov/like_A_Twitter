@@ -20,7 +20,7 @@
     <div>LIST OF MESSAGES:</div>
     <br>
     <form method="get" action="/main">
-    <input type="text" name="tag" value="${tag}"/>
+    <input type="text" name="tag" value="${tag?if_exists}"/>
     <button type="submit">Find by TAG</button>
     </form>
     <br>
