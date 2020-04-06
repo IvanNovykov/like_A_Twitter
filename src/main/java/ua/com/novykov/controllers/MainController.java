@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import ua.com.novykov.models.Message;
 import ua.com.novykov.models.User;
 import ua.com.novykov.service.MessageService;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -25,7 +24,7 @@ public class MainController {
     private final MessageService messageService;
 
     @Value("${upload.path}")
-        private String uploadPath;
+    private String uploadPath;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -54,7 +53,7 @@ public class MainController {
         Message message = new Message(text, tag, user);
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
-            if(!uploadDir.exists()){
+            if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
             String uuidFile = UUID.randomUUID().toString();
